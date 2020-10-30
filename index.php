@@ -10,8 +10,7 @@
     <script src="js/nav.js"></script>
 
     <div class="container">
-        <h1>Image Gallery</h1>
-
+        <h1>Browse Albums</h1>
         <?php
         $directory = dir('./albums');
         echo "<ul>";
@@ -19,22 +18,12 @@
             if ($folder == "." || $folder == "..") continue;
             echo "<li>";
 
-            echo "<a href='./albums/$folder'>" . $folder . "</a>";
+            echo "<a href='./view_album.php?album=$folder'>" . $folder . "</a>";
 
             echo "</li>";
         }
         echo "</ul>";
         ?>
-
-        <div class="gallery">
-            <?php
-            $filelist = glob("./images/*");
-
-            foreach ($filelist as $filename) {
-                echo "<a href='" . $filename . "' data-lightbox='mygallery'><img src='" . $filename . "'></a>";
-            }
-            ?>
-        </div>
     </div>
 
 
