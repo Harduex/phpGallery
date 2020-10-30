@@ -39,7 +39,8 @@ input[type=submit],
     padding: 8px 10px;
     text-decoration: none;
     font-size: 16px;
-    margin: 4px 35px;
+    margin-right: 4px;
+    margin-top: 4px;
     cursor: pointer;
 }
 

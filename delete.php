@@ -1,8 +1,9 @@
 <?php
 $file = basename($_GET['f']);
-if(is_file("./images/".$file)){
-    header("Location: ./dashboard.php");
-    unlink("./images/".$file);
+$album = basename($_GET['album']);
+if(is_file("./albums/".$album.'/'.$file)){
+    header("Location: ./list_album.php?album=$album");
+    unlink("./albums/".$album.'/'.$file);
     exit();
 }else{
     echo 'error';

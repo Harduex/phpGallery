@@ -14,35 +14,10 @@
 
         <h1>Dashboard</h1>
         <a href="create_album.php">New Album</a>
-
-        <?php
-        $directory = dir('./albums');
-        echo "<ul>";
-        while (($album = $directory->read()) !== false) {
-            if ($album == "." || $album == "..") continue;
-            echo "<li>";
-
-            echo "<a href='./list_album.php?album=$album'>" . $album . "</a>";
-            echo "<a class='delete' href='delete_album.php?album=$album'> Delete</a>";
-            echo "</li>";
-        }
-        echo "</ul>";
-    
-        echo "<br><a class='delete-all' onclick='return comfirmDelete()'>Delete all albums</a>"
-        ?>
-        <script>
-            function comfirmDelete() {
-                var conf = confirm("Are you sure you want to delete all albums?");
-                if(conf) {
-                    window.location='delete_all_albums.php';
-                }
-            }
-        </script>
-
-        <!-- <div class="upload">
+        <div class="upload">
             <fieldset>
                 <legend>Upload:</legend>
-                <form method="post" enctype="multipart/form-data" action="dashboard.php">
+                <form method="post" enctype="multipart/form-data" action="list_album.php?album=<?php echo urlencode($_GET['album']) ?>">
                     <label class="file-upload">
                         <input type="file" name="userImg">
                         Choose Image
@@ -53,7 +28,7 @@
         </div>
         <?php
         $alowed_ext = array('jpg', 'png', 'gif');
-
+        $album = basename($_GET['album']);
 
         if (isset($_FILES['userImg']) && $_FILES['userImg']['error'] == 0) {
             $fileinfo = pathinfo($_FILES['userImg']['name']);
@@ -61,12 +36,12 @@
 
             if (array_search($fileinfo['extension'], $alowed_ext) !== false) {
 
-                if (file_exists("./images/" . $filename)) {
+                if (file_exists("./albums/" . $album . '/' .  $filename)) {
                     $ext   = pathinfo($filename, PATHINFO_EXTENSION);
                     $newfile = basename($filename, ".$ext") . '_' . uniqid() . '.' . $ext;
-                    move_uploaded_file($_FILES['userImg']['tmp_name'], './images/' . $newfile);
+                    move_uploaded_file($_FILES['userImg']['tmp_name'], './albums/'. $album . '/' . $newfile);
                 } else {
-                    move_uploaded_file($_FILES['userImg']['tmp_name'], './images/' . $filename);
+                    move_uploaded_file($_FILES['userImg']['tmp_name'], './albums/' . $album . '/' . $filename);
                 }
             } else {
                 echo "Bad file extension";
@@ -74,16 +49,16 @@
         }
 
 
-        $directory = dir('./images');
+        $directory = dir('./albums/'.$album);
         echo "<ul>";
         while (($entry = $directory->read()) !== false) {
             if ($entry == "." || $entry == "..") continue;
             echo "<li>";
-            echo " <img src='./images/" . $entry . "'height='40'> ";
+            echo " <img src='./albums/" . $album . '/' . $entry . " 'height='40'> ";
 
             echo $entry;
 
-            $size = filesize('./images/' . $entry);
+            $size = filesize('./albums/' . $album . '/' .  $entry);
             if ($size > 1024) {
                 $fsize = round($size / 1024) . "KB";
             }
@@ -95,7 +70,7 @@
             }
             echo " [" . $fsize . "] ";
 
-            if (is_file('./images/' . $entry)) {
+            if (is_file('./albums/' . $entry)) {
                 echo "<a href='download.php?f=$entry'>";
                 echo 'Download';
                 echo "</a>";
@@ -103,7 +78,7 @@
                 echo $entry;
             }
 
-            echo "<a class='delete' href='delete.php?f=$entry'> Delete</a>";
+            echo "<a class='delete' href='delete.php?f=$entry&album=$album'> Delete</a>";
             echo "</li>";
         }
         echo "</ul>";
@@ -111,12 +86,13 @@
         ?>
         <script>
             function comfirmDelete() {
-                var conf = confirm("Are you sure you want to delete all images in this gallery?");
-                if (conf) {
-                    window.location = 'delete_all.php'
+                var album = "<?php echo $album ?>"
+                var conf = confirm("Are you sure you want to delete all images in " + album + "?");
+                if(conf) {
+                    window.location='delete_all.php?album='+album;
                 }
             }
-        </script> -->
+        </script>
     </div>
 
 </body>
