@@ -3,7 +3,6 @@
 
 <head>
     <link rel='stylesheet' href='css/style.css' />
-    <link rel='stylesheet' href='css/album-style.css' />
     <meta charset="UTF-8" />
     <title>Gallery</title>
 </head>

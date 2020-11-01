@@ -15,21 +15,25 @@
 
     <div class="container">
         <?php
-        echo "<h1>Album " . $_GET['album'] . "</h1>";
+        echo "<a href='view_album.php?album=" . $_GET['album'] . "'><h1 class='opacity'>Album " . $_GET['album'] . "</h1></a>";
         ?>
-        <a href="create_album.php">New Album</a>
-        <div class="upload">
+        <a class="new opacity" href="create_album.php">New Album</a>
+        <br>
+        <br>
+        <div class="options">
             <fieldset>
-                <legend>Upload:</legend>
-                <form method="post" enctype="multipart/form-data" action="list_album.php?album=<?php echo urlencode($_GET['album']) ?>">
+                <legend>Options:</legend>
+                <form method="post" enctype="multipart/form-data" action="manage_album.php?album=<?php echo urlencode($_GET['album']) ?>">
                     <label class="file-upload">
                         <input type="file" name="userImg">
                         Choose Image
                     </label>
                     <input type="Submit" value='Upload image'>
+                    <a class='delete-all delete' onclick='return comfirmDelete()'>Delete all images</a>
                 </form>
             </fieldset>
         </div>
+        <br>
         <?php
         $alowed_ext = array('jpg', 'png', 'gif');
         $album = basename($_GET['album']);
@@ -58,7 +62,10 @@
         while (($entry = $directory->read()) !== false) {
             if ($entry == "." || $entry == "..") continue;
             echo "<li>";
-            echo " <img src='./albums/" . $_SESSION['username'] . "/" . $album . '/' . $entry . " 'height='40'> ";
+            $img_url = "./albums/" . $_SESSION['username'] . "/" . $album . "/" . $entry;
+            echo "<a href='$img_url'>
+                    <img src='$img_url' class='square-mini'>
+                  </a>";
 
             echo $entry;
 
@@ -82,11 +89,11 @@
                 echo $entry;
             }
 
-            echo "<a class='delete' href='delete.php?f=$entry&album=$album'> Delete</a>";
+            echo "<a class='delete opacity' href='delete.php?f=$entry&album=$album' style='padding-top: 25px'> Delete</a>";
+            echo "<hr>";
             echo "</li>";
         }
         echo "</ul>";
-        echo "<br><a class='delete-all' onclick='return comfirmDelete()'>Delete all images</a>"
         ?>
         <script>
             function comfirmDelete() {

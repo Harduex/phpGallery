@@ -4,15 +4,36 @@ body {
 }
 
 .container {
-    margin: 20px;
+    margin: 20px 200px;
 }
 
 .container ul {
     list-style-type: none;
 }
 
+a {
+    opacity: 1;
+    text-decoration: none;
+    color: black;
+}
+
+.opacity:hover {
+    opacity: 0.5;
+}
+
 .delete {
+    margin-right: 10px;
     color: red;
+    float: right;
+}
+
+.manage {
+    color: rgb(123, 206, 0);
+    float: right;
+}
+
+.new {
+    color: rgb(0, 81, 255);
 }
 
 .delete-all {
@@ -26,9 +47,9 @@ body {
     cursor: pointer;
 }
 
-.upload {
-    padding: 20px;
-    width: 28%;
+.options {
+    padding-left: 36px;
+    width: 100%;
 }
 
 input[type=submit],
@@ -49,7 +70,23 @@ input[type="file"] {
 }
 
 .gallery {
-    margin: 10px 50px;
+    margin: 30px;
+}
+
+.square-mini {
+    object-fit: cover;
+    width: 40px;
+    height: 40px;
+}
+
+.square {
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
+}
+
+.dashboard {
+    margin: 8px;
 }
 
 .gallery img {
@@ -60,6 +97,42 @@ input[type="file"] {
 
 .gallery img:hover {
     transform: scale(1.1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.album-container {
+    position: relative;
+    float: left;
+    width: 230px;
+    margin: 10px;
+}
+
+.album-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    transition: .3s;
+    opacity: 0;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.album-container:hover .overlay {
+    opacity: 1;
 }
 
 ul.topnav {

@@ -15,22 +15,24 @@
 
     <div class="container">
         <?php
+        echo "<div class='dashboard'>";
         echo "<h1>" . $_SESSION['username'] . " Dashboard</h1>";
-        echo '<a href="create_album.php">New Album</a>';
+        echo '<a class="new opacity" href="create_album.php">New Album</a>';
 
         $directory = dir('./albums/' . $_SESSION['username']);
         echo "<ul>";
         while (($album = $directory->read()) !== false) {
             if ($album == "." || $album == "..") continue;
             echo "<li>";
-
-            echo "<a href='./list_album.php?album=$album'>" . $album . "</a>";
-            echo "<a class='delete' href='delete_album.php?album=$album'> Delete</a>";
+            echo "<b><a class='opacity' href='./view_album.php?album=$album'>" . $album . "</a></b>";
+            echo "<a class='manage opacity' href='./manage_album.php?album=$album'> Manage</a>";
+            echo "<a class='delete opacity' href='delete_album.php?album=$album'> Delete</a>";
             echo "</li>";
         }
         echo "</ul>";
 
-        echo "<br><a class='delete-all' onclick='return comfirmDelete()'>Delete all albums</a>"
+        echo "<br><a class='delete-all opacity' onclick='return comfirmDelete()'>Delete all albums</a>";
+        echo "</div>";
         ?>
         <script>
             function comfirmDelete() {
