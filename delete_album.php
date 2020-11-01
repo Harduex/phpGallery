@@ -1,4 +1,7 @@
 <?php
+
+require_once('users/authenticate.php');
+
 $album = basename($_GET['album']);
 
 header("Location: ./dashboard.php");
@@ -18,4 +21,4 @@ function rrmdir($dir)
     }
 }
 
-rrmdir('./albums/' . $album);
+rrmdir('./albums/' . $_SESSION['username'] . "/" . $album);

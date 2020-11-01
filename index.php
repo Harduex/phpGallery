@@ -9,17 +9,20 @@
 </head>
 
 <body>
+    <?php
+    require_once('users/authenticate.php');
+    ?>
     <script src="js/nav.js"></script>
 
     <div class="container">
-        <h1>Browse Albums</h1>
         <?php
-        $directory = dir('./albums');
+        echo "<h1>" . $_SESSION['username'] . " Albums</h1>";
+        $directory = dir('./albums/' . $_SESSION['username']);
 
         while (($folder = $directory->read()) !== false) {
             if ($folder == "." || $folder == "..") continue;
 
-            $album = './albums/' . $folder;
+            $album = './albums/' . $_SESSION['username'] . "/" . $folder;
 
             if (!(count(glob("$album/*")) === 0)) {
                 $img = random_pic($album);

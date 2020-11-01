@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    <?php
+    require_once('users/authenticate.php');
+    ?>
     <script src="js/nav.js"></script>
 
     <div class="container">
@@ -22,7 +25,8 @@
 
         <?php
         if (isset($_POST['submit'])) {
-            mkdir("./albums/" . $_POST["albumName"], 0700);
+            mkdir("./albums/" . $_SESSION['username'], 0700);
+            mkdir("./albums/" . $_SESSION['username'] . "/" . $_POST["albumName"], 0700);
             header("Location: ./dashboard.php");
         }
         ?>
