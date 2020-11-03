@@ -16,7 +16,13 @@
     <div class="container">
         <?php
         echo "<h1>" . $_SESSION['username'] . " Albums</h1>";
-        $directory = dir('./albums/' . $_SESSION['username']);
+        $dir_path = './albums/' . $_SESSION['username'];
+        $directory = dir($dir_path);
+        
+        if(!is_dir($dir_path)) {
+            mkdir("./albums/" . $_SESSION['username'], 0700);
+            header("Refresh:0");
+        }
 
         while (($folder = $directory->read()) !== false) {
             if ($folder == "." || $folder == "..") continue;

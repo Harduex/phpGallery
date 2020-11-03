@@ -64,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Something went wrong. Please try again later.";
             }
-
             mysqli_stmt_close($stmt);
         }
     }
