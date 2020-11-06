@@ -81,14 +81,6 @@
             }
             echo " [" . $fsize . "] ";
 
-            if (is_file('./albums/' . $_SESSION['username'] . "/" . $entry)) {
-                echo "<a href='download.php?f=$entry'>";
-                echo 'Download';
-                echo "</a>";
-            } else {
-                echo $entry;
-            }
-
             echo "<a class='delete opacity' href='delete.php?f=$entry&album=$album' style='padding-top: 25px'> Delete</a>";
             echo "<hr>";
             echo "</li>";
